@@ -1,0 +1,63 @@
+Laravel install
+-composer require laravel/ui
+-php artisan ui vue --auth
+-npm install && npm run dev
+
+db Config
+install adminLte admin panel:
+-npm install admin-lte@^3.2 --save
+-npm run watch-poll(for compiler runing)
+(Blank.html file code copy & paste to components/layout file) 
+linking admin_lte:
+ require('admin-lte'); ->(add resources/js/components/bootstrap.js)
+@import '~admin-lte/dist/css/adminlte.min.css'; ->(add resources/sass/app.scss)
+
+Install font-awesome:
+-npm install --save @fortawesome/fontawesome-free
+linking fortawerome:
+require('@fortawesome/fontawesome-free'); ->(add resources/js/components/bootstrap.js)
+@import '~@fortawesome/fontawesome-free/css/all.min.css'; ->(add resources/sass/app.scss)
+
+create model migration :
+-php artisan make:model Category -m
+-php artisan make:model Post -m
+( category & post table create than migrate the file)
+-php artisan migrate
+
+seeder files:
+-php artisan make:seeder UserTableSeeder
+-php artisan make:seeder CategoryTableSeeder
+-php artisan make:seeder PostTableSeeder
+(seeder file edit)
+-php artisan migrate:fresh --seed
+
+Controller Create:
+-php artisan make:controller Admin\CategoryController --resource
+-php artisan make:controller Admin\PostController --resource
+
+vue router with npm:
+-npm install vue-router@3.0.0
+
+(app.js file & routes.js file customaize)
+
+install vform:
+-npm install axios vform
+
+sweetalert2 :
+-npm install sweetalert2
+(import Swal from 'sweetalert2' in app.js file)
+
+install toastr js:
+https://github.com/CodeSeven/toastr
+-npm install --save toastr
+(@import "~toastr/toastr"; in scss file )
+(import toastr from 'toastr'
+window.toastr = toastr; in app.js file)
+
+Vuex:
+https://vuex.vuejs.org/installation.html
+-npm install vuex@"^3.0.2" --save
+
+install moment js:
+https://momentjs.com/
+-npm install moment --save
