@@ -27,6 +27,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::post('/addcategory', [App\Http\Controllers\Admin\CategoryController::class, 'store'])->name('addcategory');
 Route::get('/getcategory', [App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('getcategory');
-Route::get('/removecategory/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'destroy'])->name('removecategory');
+Route::delete('/removecategory/{id?}', [App\Http\Controllers\Admin\CategoryController::class, 'destroy'])->name('removecategory');
 Route::get('/editcategory/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'show'])->name('removecategory');
 Route::post('/updatecategory', [App\Http\Controllers\Admin\CategoryController::class, 'update'])->name('updatecategory');

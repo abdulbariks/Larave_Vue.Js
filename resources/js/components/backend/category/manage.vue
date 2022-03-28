@@ -42,8 +42,10 @@
                                                     <router-link :to="`/editcategory/${category.id}`" class="btn btn-success btn-sm" >Edit</router-link>
                                                     <!-- <button type="button" class="btn btn-success btn-sm">Edit</button> -->
                                                 </td>
+
                                                 <td>
-                                                     <button type="button" class="btn btn-danger btn-sm" v-on:click="remove(category.id)" v-bind:key="(category.id)">Delete</button>
+                                                     <!-- <a v-on:click="remove(category.id)" href="#" class="btn btn-danger btn-sm" onclick="return confirm('Are You Sure to Delete?')">Delete</a> -->
+                                                     <button type="button" class="btn btn-danger btn-sm" v-on:click="myFunction(category.id)">Delete</button>
                                                 </td>
                                                 </tr>
                                                 <tr v-if="emptyData()">
@@ -72,62 +74,51 @@ export default {
             categoryids: []
         }
     },
-    mounted() {
-        let this_ = this;
-        this_.$store.dispatch("categories");
-    },
+
     computed:{
         categories(){
             return this.$store.getters.categories;
         }
     },
+
+         mounted() {
+        let this_ = this;
+        this_.$store.dispatch("categories");
+    },
+
     methods:{
         statusName: (status) =>{
             let data = {
                 0: "Inactive", 1: "Active"}
             return data[status];
         },
-            statusColor: (status) =>{
+        statusColor: (status) =>{
             let data = {
                 0: "bg-danger", 1: "bg-success"}
             return data[status];
         },
-        remove: (id) =>{
-            let this_ = this;
-            //  toastr.success(id);
+       myFunction: function($id){
+                let this_ = this;
+              if (confirm("Are You Sure to Delete?") == true) {
+                           axios.delete("/removecategory/" + $id).then( () =>{
+                           this_.$store.dispatch("categories");
 
-                axios.get("/removecategory/" + id).then( (response) =>{
-
-                    toastr.info("Category Deleted Successfully");
-                    // this_.$router.push("/categories");
-                    this_.$store.dispatch("/categories");
-
-                // Swal.fire({
-                // title: 'Are you sure?',
-                // text: "You won't be able to revert this!",
-                // icon: 'warning',
-                // showCancelButton: true,
-                // confirmButtonColor: '#3085d6',
-                // cancelButtonColor: '#d33',
-                // confirmButtonText: 'Yes, delete it!'
-                // }).then((response) => {
-                // if (response.isConfirmed) {
-                //     Swal.fire(
-                //     'Deleted!',
-                //     'Your file has been deleted.',
-                //     'success'
-                //     )
-                // }
-                // })
-
-
-
-
-
-                }).catch((error) =>{
-            })
-
+                          }).catch((error) =>{
+                                    })
+                    } else {
+                        this_.$store.dispatch("categories");
+                    }
         },
+
+        // remove: function($id){
+        //         let this_ = this;
+        //         axios.delete("/removecategory/" + $id).then( () =>{
+        //          this_.$store.dispatch("categories");
+
+        //         }).catch((error) =>{
+        //     })
+
+        // },
         emptyData(){
         // return false;
         return (this.categories.length < 1);

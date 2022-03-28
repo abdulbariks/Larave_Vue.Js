@@ -8517,8 +8517,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-var _this = undefined;
-
+//
+//
 //
 //
 //
@@ -8592,14 +8592,14 @@ var _this = undefined;
       categoryids: []
     };
   },
-  mounted: function mounted() {
-    var this_ = this;
-    this_.$store.dispatch("categories");
-  },
   computed: {
     categories: function categories() {
       return this.$store.getters.categories;
     }
+  },
+  mounted: function mounted() {
+    var this_ = this;
+    this_.$store.dispatch("categories");
   },
   methods: {
     statusName: function statusName(status) {
@@ -8616,31 +8616,24 @@ var _this = undefined;
       };
       return data[status];
     },
-    remove: function remove(id) {
-      var this_ = _this; //  toastr.success(id);
+    myFunction: function myFunction($id) {
+      var this_ = this;
 
-      axios.get("/removecategory/" + id).then(function (response) {
-        toastr.info("Category Deleted Successfully"); // this_.$router.push("/categories");
-
-        this_.$store.dispatch("/categories"); // Swal.fire({
-        // title: 'Are you sure?',
-        // text: "You won't be able to revert this!",
-        // icon: 'warning',
-        // showCancelButton: true,
-        // confirmButtonColor: '#3085d6',
-        // cancelButtonColor: '#d33',
-        // confirmButtonText: 'Yes, delete it!'
-        // }).then((response) => {
-        // if (response.isConfirmed) {
-        //     Swal.fire(
-        //     'Deleted!',
-        //     'Your file has been deleted.',
-        //     'success'
-        //     )
-        // }
-        // })
-      })["catch"](function (error) {});
+      if (confirm("Are You Sure to Delete?") == true) {
+        axios["delete"]("/removecategory/" + $id).then(function () {
+          this_.$store.dispatch("categories");
+        })["catch"](function (error) {});
+      } else {
+        this_.$store.dispatch("categories");
+      }
     },
+    // remove: function($id){
+    //         let this_ = this;
+    //         axios.delete("/removecategory/" + $id).then( () =>{
+    //          this_.$store.dispatch("categories");
+    //         }).catch((error) =>{
+    //     })
+    // },
     emptyData: function emptyData() {
       // return false;
       return this.categories.length < 1;
@@ -65210,12 +65203,11 @@ var render = function () {
                               _c(
                                 "button",
                                 {
-                                  key: category.id,
                                   staticClass: "btn btn-danger btn-sm",
                                   attrs: { type: "button" },
                                   on: {
                                     click: function ($event) {
-                                      return _vm.remove(category.id)
+                                      return _vm.myFunction(category.id)
                                     },
                                   },
                                 },
