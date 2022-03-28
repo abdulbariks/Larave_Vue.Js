@@ -34,7 +34,7 @@ Route::post('/updatecategory', [App\Http\Controllers\Admin\CategoryController::c
 
 //Post Route
 Route::post('/addpost', [App\Http\Controllers\Admin\PostController::class, 'store'])->name('addpost');
-Route::get('/getpost', [App\Http\Controllers\Admin\PostController::class, 'index'])->name('getpost');
+Route::get('/getposts', [App\Http\Controllers\Admin\PostController::class, 'index'])->name('getpost');
 Route::delete('/removepost/{id?}', [App\Http\Controllers\Admin\PostController::class, 'destroy'])->name('removepost');
 Route::get('/editpost/{id}', [App\Http\Controllers\Admin\PostController::class, 'show'])->name('removepost');
 Route::post('/updatepost', [App\Http\Controllers\Admin\PostController::class, 'update'])->name('updatepost');

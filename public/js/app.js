@@ -8955,7 +8955,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
-    categories: function categories() {
+    posts: function posts() {
       return this.$store.getters.posts;
     }
   },
@@ -9211,11 +9211,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   state: {
-    categoryData: []
+    categoryData: [],
+    postData: []
   },
   getters: {
     categories: function categories(state) {
       return state.categoryData;
+    },
+    posts: function posts(state) {
+      return state.postsData;
     }
   },
   actions: {
@@ -9224,11 +9228,20 @@ __webpack_require__.r(__webpack_exports__);
         //    console.log(response.data.category);
         data.commit("categories", response.data.category);
       })["catch"](function (error) {});
+    },
+    posts: function posts(data) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("getposts").then(function (response) {
+        //    console.log(response.data.category);
+        data.commit("posts", response.data.posts);
+      })["catch"](function (error) {});
     }
   },
   mutations: {
     categories: function categories(state, data) {
       return state.categoryData = data;
+    },
+    posts: function posts(state, data) {
+      return state.postsData = data;
     }
   }
 });

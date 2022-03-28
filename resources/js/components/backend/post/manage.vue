@@ -82,7 +82,7 @@ export default {
     },
 
     computed:{
-        categories(){
+        posts(){
             return this.$store.getters.posts;
         }
     },
