@@ -8585,6 +8585,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "manage",
   data: function data() {
@@ -8616,10 +8620,11 @@ __webpack_require__.r(__webpack_exports__);
       };
       return data[status];
     },
-    myFunction: function myFunction($id) {
+    removeFunction: function removeFunction($id) {
       var this_ = this;
+      var remove = prompt("Are You Sure to Delete?");
 
-      if (confirm("Are You Sure to Delete?") == true) {
+      if (remove == "yes") {
         axios["delete"]("/removecategory/" + $id).then(function () {
           this_.$store.dispatch("categories");
         })["catch"](function (error) {});
@@ -8627,6 +8632,17 @@ __webpack_require__.r(__webpack_exports__);
         this_.$store.dispatch("categories");
       }
     },
+    //    removeFunction: function($id){
+    //             let this_ = this;
+    //           if (confirm("Are You Sure to Delete?") == true) {
+    //                        axios.delete("/removecategory/" + $id).then( () =>{
+    //                        this_.$store.dispatch("categories");
+    //                       }).catch((error) =>{
+    //                                 })
+    //                 } else {
+    //                     this_.$store.dispatch("categories");
+    //                 }
+    //     },
     // remove: function($id){
     //         let this_ = this;
     //         axios.delete("/removecategory/" + $id).then( () =>{
@@ -65789,11 +65805,15 @@ var render = function () {
                                   attrs: { type: "button" },
                                   on: {
                                     click: function ($event) {
-                                      return _vm.myFunction(category.id)
+                                      return _vm.removeFunction(category.id)
                                     },
                                   },
                                 },
-                                [_vm._v("Delete")]
+                                [
+                                  _vm._v(
+                                    "Delete\n                                                  "
+                                  ),
+                                ]
                               ),
                             ]),
                           ])

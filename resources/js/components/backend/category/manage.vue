@@ -45,7 +45,11 @@
 
                                                 <td>
                                                      <!-- <a v-on:click="remove(category.id)" href="#" class="btn btn-danger btn-sm" onclick="return confirm('Are You Sure to Delete?')">Delete</a> -->
-                                                     <button type="button" class="btn btn-danger btn-sm" v-on:click="myFunction(category.id)">Delete</button>
+                                                     <button
+                                                        type="button" 
+                                                        class="btn btn-danger btn-sm" 
+                                                        v-on:click="removeFunction(category.id)">Delete
+                                                      </button>
                                                 </td>
                                                 </tr>
                                                 <tr v-if="emptyData()">
@@ -97,9 +101,11 @@ export default {
                 0: "bg-danger", 1: "bg-success"}
             return data[status];
         },
-       myFunction: function($id){
+
+             removeFunction: function($id){
                 let this_ = this;
-              if (confirm("Are You Sure to Delete?") == true) {
+                let remove = prompt("Are You Sure to Delete?");
+              if (  remove == "yes") {
                            axios.delete("/removecategory/" + $id).then( () =>{
                            this_.$store.dispatch("categories");
 
@@ -109,6 +115,19 @@ export default {
                         this_.$store.dispatch("categories");
                     }
         },
+
+    //    removeFunction: function($id){
+    //             let this_ = this;
+    //           if (confirm("Are You Sure to Delete?") == true) {
+    //                        axios.delete("/removecategory/" + $id).then( () =>{
+    //                        this_.$store.dispatch("categories");
+
+    //                       }).catch((error) =>{
+    //                                 })
+    //                 } else {
+    //                     this_.$store.dispatch("categories");
+    //                 }
+    //     },
 
         // remove: function($id){
         //         let this_ = this;
