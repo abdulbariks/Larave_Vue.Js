@@ -7,9 +7,9 @@
                             <div class="card">
                                 <div class="card-header">
                                       <div class="card-body">
-                                            <h4 class="card-title my-1">Posts</h4>
+                                            <h4 class="card-title my-1">Post</h4>
                                             <div class="card-tools float-right">
-                                                <router-link to="/addpost" class="btn btn-info btn-sm ">Add Post</router-link>
+                                                <router-link to="/addcategory" class="btn btn-info btn-sm ">Add Post</router-link>
                                             </div>
                                       </div>
                                       <div class="card-body p-0">
@@ -32,31 +32,35 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr v-for="(post, index) in posts" v-bind:key="(post, index) ">
+                                                <tr v-for="(category, index) in posts" v-bind:key="(posts, index) ">
                                                 <th scope="row">{{++index}}</th>
                                                 <!-- <th>
                                                     <input type="checkbox" :value="category.id" v-model="categoryids">
                                                 </th> -->
-                                                <td>{{Posts.title | subString(3)}}</td>
-                                                <td>{{ Posts.content}}</td>
-                                                <td>{{ Posts.thumbnail}}</td>
-                                                <td>{{ Posts.category_id}}</td>
-                                                <td>{{ post.user_id}}</td>
-                                                <td><span class="badge" :class="statusColor(Posts.status)">{{ statusName(posts.status)}}</span></td>
-                                                <td>{{ category.created_at | time}}</td>
+                                                <td>{{post.title | subString(3)}}</td>
+                                                <td>{{post.content}}</td>
+                                                <td>{{post.thumbnail}}</td>
+                                                <td>{{post.category}}</td>
+                                                <td>{{post.user}}</td>
+                                                <td><span class="badge" :class="statusColor(post.status)">{{ statusName(post.status)}}</span></td>
+                                                <td>{{ post.created_at | time}}</td>
                                                 <td>
-                                                    <router-link :to="`/editpost/${Posts.id}`" class="btn btn-success btn-sm" >Edit</router-link>
+                                                    <router-link :to="`/editpost/${post.id}`" class="btn btn-success btn-sm" >Edit</router-link>
                                                     <!-- <button type="button" class="btn btn-success btn-sm">Edit</button> -->
                                                 </td>
 
                                                 <td>
                                                      <!-- <a v-on:click="remove(category.id)" href="#" class="btn btn-danger btn-sm" onclick="return confirm('Are You Sure to Delete?')">Delete</a> -->
-                                                     <button type="button" class="btn btn-danger btn-sm" v-on:click="myFunction(posts.id)">Delete</button>
+                                                     <button
+                                                        type="button"
+                                                        class="btn btn-danger btn-sm"
+                                                        v-on:click="removeFunction(post.id)">Delete
+                                                      </button>
                                                 </td>
                                                 </tr>
                                                 <!-- <tr v-if="emptyData()">
                                                     <td colspan="12">
-                                                       <h3 class="text-center text-danger">Post Not Found</h3>
+                                                       <h3 class="text-center text-danger">Category Not Found</h3>
                                                     </td>
                                                 </tr> -->
                                             </tbody>
@@ -77,7 +81,6 @@ export default {
     name: "manage",
     data: function(){
         return {
-            postids: []
         }
     },
 
@@ -103,18 +106,33 @@ export default {
                 0: "bg-danger", 1: "bg-success"}
             return data[status];
         },
-       myFunction: function($id){
+
+             removeFunction: function($id){
                 let this_ = this;
-              if (confirm("Are You Sure to Delete?") == true) {
-                           axios.delete("/removepost/" + $id).then( () =>{
-                           this_.$store.dispatch("posts");
+                let remove = prompt("Are You Sure to Delete?");
+              if (  remove == "yes") {
+                           axios.delete("/removecategory/" + $id).then( () =>{
+                           this_.$store.dispatch("categories");
 
                           }).catch((error) =>{
                                     })
                     } else {
-                        this_.$store.dispatch("posts");
+                        this_.$store.dispatch("categories");
                     }
         },
+
+    //    removeFunction: function($id){
+    //             let this_ = this;
+    //           if (confirm("Are You Sure to Delete?") == true) {
+    //                        axios.delete("/removecategory/" + $id).then( () =>{
+    //                        this_.$store.dispatch("categories");
+
+    //                       }).catch((error) =>{
+    //                                 })
+    //                 } else {
+    //                     this_.$store.dispatch("categories");
+    //                 }
+    //     },
 
         // remove: function($id){
         //         let this_ = this;

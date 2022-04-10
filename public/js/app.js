@@ -8963,12 +8963,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "manage",
   data: function data() {
-    return {
-      postids: []
-    };
+    return {};
   },
   computed: {
     posts: function posts() {
@@ -8994,17 +8996,29 @@ __webpack_require__.r(__webpack_exports__);
       };
       return data[status];
     },
-    myFunction: function myFunction($id) {
+    removeFunction: function removeFunction($id) {
       var this_ = this;
+      var remove = prompt("Are You Sure to Delete?");
 
-      if (confirm("Are You Sure to Delete?") == true) {
-        axios["delete"]("/removepost/" + $id).then(function () {
-          this_.$store.dispatch("posts");
+      if (remove == "yes") {
+        axios["delete"]("/removecategory/" + $id).then(function () {
+          this_.$store.dispatch("categories");
         })["catch"](function (error) {});
       } else {
-        this_.$store.dispatch("posts");
+        this_.$store.dispatch("categories");
       }
-    } // remove: function($id){
+    } //    removeFunction: function($id){
+    //             let this_ = this;
+    //           if (confirm("Are You Sure to Delete?") == true) {
+    //                        axios.delete("/removecategory/" + $id).then( () =>{
+    //                        this_.$store.dispatch("categories");
+    //                       }).catch((error) =>{
+    //                                 })
+    //                 } else {
+    //                     this_.$store.dispatch("categories");
+    //                 }
+    //     },
+    // remove: function($id){
     //         let this_ = this;
     //         axios.delete("/removecategory/" + $id).then( () =>{
     //          this_.$store.dispatch("categories");
@@ -9254,10 +9268,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   mutations: {
     categories: function categories(state, data) {
-      return state.categoryData = data;
+      state.categoryData = data;
     },
     posts: function posts(state, data) {
-      return state.postsData = data;
+      state.postsData = data;
     }
   }
 });
@@ -66436,7 +66450,7 @@ var render = function () {
               _c("div", { staticClass: "card-header" }, [
                 _c("div", { staticClass: "card-body" }, [
                   _c("h4", { staticClass: "card-title my-1" }, [
-                    _vm._v("Posts"),
+                    _vm._v("Post"),
                   ]),
                   _vm._v(" "),
                   _c(
@@ -66447,7 +66461,7 @@ var render = function () {
                         "router-link",
                         {
                           staticClass: "btn btn-info btn-sm ",
-                          attrs: { to: "/addpost" },
+                          attrs: { to: "/addcategory" },
                         },
                         [_vm._v("Add Post")]
                       ),
@@ -66462,41 +66476,39 @@ var render = function () {
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      _vm._l(_vm.posts, function (post, index) {
-                        return _c("tr", { key: (post, index) }, [
+                      _vm._l(_vm.posts, function (category, index) {
+                        return _c("tr", { key: (_vm.posts, index) }, [
                           _c("th", { attrs: { scope: "row" } }, [
                             _vm._v(_vm._s(++index)),
                           ]),
                           _vm._v(" "),
                           _c("td", [
                             _vm._v(
-                              _vm._s(_vm._f("subString")(_vm.Posts.title, 3))
+                              _vm._s(_vm._f("subString")(_vm.post.title, 3))
                             ),
                           ]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(_vm.Posts.content))]),
+                          _c("td", [_vm._v(_vm._s(_vm.post.content))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(_vm.Posts.thumbnail))]),
+                          _c("td", [_vm._v(_vm._s(_vm.post.thumbnail))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(_vm.Posts.category_id))]),
+                          _c("td", [_vm._v(_vm._s(_vm.post.category))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(post.user_id))]),
+                          _c("td", [_vm._v(_vm._s(_vm.post.user))]),
                           _vm._v(" "),
                           _c("td", [
                             _c(
                               "span",
                               {
                                 staticClass: "badge",
-                                class: _vm.statusColor(_vm.Posts.status),
+                                class: _vm.statusColor(_vm.post.status),
                               },
-                              [_vm._v(_vm._s(_vm.statusName(_vm.posts.status)))]
+                              [_vm._v(_vm._s(_vm.statusName(_vm.post.status)))]
                             ),
                           ]),
                           _vm._v(" "),
                           _c("td", [
-                            _vm._v(
-                              _vm._s(_vm._f("time")(_vm.category.created_at))
-                            ),
+                            _vm._v(_vm._s(_vm._f("time")(_vm.post.created_at))),
                           ]),
                           _vm._v(" "),
                           _c(
@@ -66506,7 +66518,7 @@ var render = function () {
                                 "router-link",
                                 {
                                   staticClass: "btn btn-success btn-sm",
-                                  attrs: { to: "/editpost/" + _vm.Posts.id },
+                                  attrs: { to: "/editpost/" + _vm.post.id },
                                 },
                                 [_vm._v("Edit")]
                               ),
@@ -66522,11 +66534,15 @@ var render = function () {
                                 attrs: { type: "button" },
                                 on: {
                                   click: function ($event) {
-                                    return _vm.myFunction(_vm.posts.id)
+                                    return _vm.removeFunction(_vm.post.id)
                                   },
                                 },
                               },
-                              [_vm._v("Delete")]
+                              [
+                                _vm._v(
+                                  "Delete\n                                                  "
+                                ),
+                              ]
                             ),
                           ]),
                         ])

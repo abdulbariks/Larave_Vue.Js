@@ -3,7 +3,7 @@ import axios from "axios";
 export default{
     state: {
         categoryData: [],
-        postData: []
+        postData: [],
 
 
       },
@@ -11,7 +11,7 @@ export default{
         categories (state) {
           return state.categoryData;
         },
-            posts (state) {
+        posts(state) {
               return state.postsData;
             }
       },
@@ -36,11 +36,11 @@ export default{
       },
       mutations: {
         categories(state, data){
-            return state.categoryData = data;
+            state.categoryData = data;
         },
 
         posts(state, data){
-            return state.postsData = data;
+             state.postsData = data;
         }
       }
 }
